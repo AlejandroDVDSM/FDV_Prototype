@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - Collectable
+  - BulletLimit
+  - Bullet
   layers:
   - Default
   - TransparentFX
