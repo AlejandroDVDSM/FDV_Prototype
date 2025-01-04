@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
         _currentHealth -= damage;
         UIManager.Instance.UpdateHpTxt(_currentHealth);
         _impulseSource.GenerateImpulse();
+        AudioManager.Instance.Play("Hit");
     }
 
     private void IncreaseScore(int score)
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Collectable"))
         {
             IncreaseScore(10);
+            AudioManager.Instance.Play("Coin");
             Destroy(other.gameObject);
         }
     }
