@@ -1264,6 +1264,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 51
   m_GroundCheck: {fileID: 1000737484}
+  OnGroundMoveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2046064913}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayFootsteps
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnLandEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5428,6 +5443,42 @@ MonoBehaviour:
   - name: Land
     clip: {fileID: 8300000, guid: 64edc39a303cea24eac7685d1df46bb3, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  footstepsSounds:
+  - name: Footstep_a
+    clip: {fileID: 8300000, guid: 364aa420c4175194992bdf0d6b336143, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Footstep_b
+    clip: {fileID: 8300000, guid: ecacb6668431bba4296dab0b88500972, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Footstep_c
+    clip: {fileID: 8300000, guid: d9852f72f4c2f95469440667d45c9ac8, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Footstep_d
+    clip: {fileID: 8300000, guid: 02dc3f7f7dddd3845b313ac10a504bcd, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Footstep_e
+    clip: {fileID: 8300000, guid: e973f3f75de3f324ea8fab9ff135a138, type: 3}
+    volume: 0.15
     pitch: 1
     loop: 0
     playOnAwake: 0

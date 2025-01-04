@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     {
         _score += score;
         UIManager.Instance.UpdateScoreTxt(_score);
+        AudioManager.Instance.Play("Coin");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -47,7 +48,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Collectable"))
         {
             IncreaseScore(10);
-            AudioManager.Instance.Play("Coin");
             Destroy(other.gameObject);
         }
     }

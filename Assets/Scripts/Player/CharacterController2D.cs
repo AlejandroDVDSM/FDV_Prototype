@@ -19,6 +19,7 @@ public class CharacterController2D : MonoBehaviour
 	[Header("Events")]
 	[Space]
 
+	public UnityEvent OnGroundMoveEvent;
 	public UnityEvent OnLandEvent;
 
 	[System.Serializable]
@@ -31,6 +32,9 @@ public class CharacterController2D : MonoBehaviour
 		
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
+		
+		if (OnGroundMoveEvent == null)
+			OnGroundMoveEvent = new UnityEvent();
 	}
 
 	private void FixedUpdate()
@@ -70,6 +74,8 @@ public class CharacterController2D : MonoBehaviour
 			else if (move < 0)
 				Flip(false);
 
+			if (move != 0 && m_Grounded)
+				OnGroundMoveEvent.Invoke();
 		}
 		
 		// If the player should jump...

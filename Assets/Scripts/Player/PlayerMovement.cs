@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         controller.Move(_horizontalMovement * Time.fixedDeltaTime, _jump);
+        //AudioManager.Instance.PlayFootsteps();
         _jump = false;
     }
 }
