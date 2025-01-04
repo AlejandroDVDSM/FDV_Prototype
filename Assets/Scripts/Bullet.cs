@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 
     private BulletSpawner _spawner;
 
-    private void Start()
+    private void Awake()
     {
         _spawner = GetComponentInParent<BulletSpawner>();
     }
