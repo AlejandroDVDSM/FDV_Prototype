@@ -8,14 +8,18 @@ public class Player : MonoBehaviour
     private int _currentHealth;
     private int _score;
 
+    private Animator _animator;
     private CinemachineImpulseSource _impulseSource;
     
     private void Start()
     {
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+        _animator = GetComponent<Animator>();
+        
         _currentHealth = maxHealth;
+        
         UIManager.Instance.UpdateHpTxt(_currentHealth);
         UIManager.Instance.UpdateScoreTxt(_score);
-        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void TakeDamage(int damage)
@@ -23,6 +27,7 @@ public class Player : MonoBehaviour
         _currentHealth -= damage;
         UIManager.Instance.UpdateHpTxt(_currentHealth);
         _impulseSource.GenerateImpulse();
+        _animator.SetTrigger("Hit");
         AudioManager.Instance.Play("Hit");
     }
 

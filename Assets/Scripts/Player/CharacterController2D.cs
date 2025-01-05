@@ -70,9 +70,9 @@ public class CharacterController2D : MonoBehaviour
 
 			// Flip the player
 			if (move > 0)
-				Flip(true);
-			else if (move < 0)
 				Flip(false);
+			else if (move < 0)
+				Flip(true);
 
 			if (move != 0 && m_Grounded)
 				OnGroundMoveEvent.Invoke();
@@ -88,8 +88,8 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	private void Flip(bool isFacingRight)
+	private void Flip(bool isFacingLeft)
 	{
-		m_SpriteRenderer.flipX = isFacingRight;
+		m_SpriteRenderer.flipX = isFacingLeft;
 	}
 }
