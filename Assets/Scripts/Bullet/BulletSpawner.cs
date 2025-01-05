@@ -6,6 +6,8 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private int _spawnAmount = 3;
     [SerializeField] private float _repeatRate = 2.5f;
+    
+    [SerializeField] private EBulletDirection bulletDirection = EBulletDirection.LEFT;
 
     private List<Bullet> _bulletPool;
     private int _currentBulletIndex;
@@ -21,7 +23,9 @@ public class BulletSpawner : MonoBehaviour
 
         for (int i = 0; i < _spawnAmount; i++)
         {
-            _bulletPool.Add(Instantiate(_bulletPrefab, transform));
+            Bullet bullet = Instantiate(_bulletPrefab, transform);
+            bullet.SetDirection(bulletDirection);
+            _bulletPool.Add(bullet);
             _bulletPool[i].gameObject.SetActive(false);
         }
         

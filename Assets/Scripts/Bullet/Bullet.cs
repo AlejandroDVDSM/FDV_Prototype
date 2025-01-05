@@ -6,7 +6,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1.0f;
 
     private BulletSpawner _spawner;
-
+    private Vector3 _direction;
+    
+    
     private void Awake()
     {
         _spawner = GetComponentInParent<BulletSpawner>();
@@ -14,14 +16,13 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.left * (_moveSpeed * Time.deltaTime), Space.World);
+        transform.Translate(_direction * (_moveSpeed * Time.deltaTime), Space.World);
     }
 
     private void OnDestroy()
     {
         _spawner.UnsubscribeBullet(this);
     }
-    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,6 +36,25 @@ public class Bullet : MonoBehaviour
             Reset();
     }
 
+    public void SetDirection(EBulletDirection direction)
+    {
+        switch (direction)
+        {
+            case EBulletDirection.LEFT:
+                _direction = Vector3.left;
+                break;
+            case EBulletDirection.RIGHT:
+                _direction = Vector3.right;
+                break;
+            case EBulletDirection.TOP:
+                _direction = Vector3.up;
+                break;
+            case EBulletDirection.BOTTOM:
+                _direction = Vector3.down;
+                break;
+        }
+    }
+    
     private void Reset()
     {
         gameObject.SetActive(false);
