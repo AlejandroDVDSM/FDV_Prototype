@@ -10,6 +10,7 @@ TagManager:
   - BulletLimit
   - Bullet
   - OffLimit
+  - DoorTrigger
   layers:
   - Default
   - TransparentFX

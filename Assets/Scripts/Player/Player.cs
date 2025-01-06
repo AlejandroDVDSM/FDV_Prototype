@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private Transform playerStart;
 
+    
+    
     private int _currentHealth;
     private int _score;
 
@@ -76,5 +78,10 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("OffLimit"))
             RestorePosition();
 
+        if (other.CompareTag("DoorTrigger"))
+        {
+            CameraManager.Instance.SetTargetGroupVCamActive();
+            other.GetComponent<InvisibleWall>().EnableInvisibleWall();
+        }
     }
 }
