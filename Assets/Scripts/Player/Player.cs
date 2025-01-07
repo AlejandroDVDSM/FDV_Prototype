@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private Transform playerStart;
-
-    
     
     private int _currentHealth;
     private int _score;
@@ -60,22 +58,22 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Obstacle"))
-            TakeDamage(10);
+            TakeDamage(1);
 
         if (other.gameObject.CompareTag("Bullet"))
-            TakeDamage(25);
+            TakeDamage(2);
         
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Collectable"))
+        if (other.CompareTag("Collectable"))
         {
-            IncreaseScore(10);
+            IncreaseScore(1);
             Destroy(other.gameObject);
         }
         
-        if (other.gameObject.CompareTag("OffLimit"))
+        if (other.CompareTag("OffLimit"))
             RestorePosition();
 
         if (other.CompareTag("DoorTrigger"))
@@ -83,5 +81,8 @@ public class Player : MonoBehaviour
             CameraManager.Instance.SetTargetGroupVCamActive();
             other.GetComponent<InvisibleWall>().EnableInvisibleWall();
         }
+        
+        if (other.CompareTag("Door"))
+            UIManager.Instance.DisplayEndPanel();
     }
 }
