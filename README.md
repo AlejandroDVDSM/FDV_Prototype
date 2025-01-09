@@ -6,6 +6,8 @@ https://github.com/user-attachments/assets/d533c7d1-1e36-4a5b-9385-52c7e74d81fa
 
 Enlace al vídeo: [https://youtu.be/OZX2B9JNGIE](https://youtu.be/OZX2B9JNGIE).
 
+Enlace al portfolio: [https://alejandro-sanchez.netlify.app/](https://alejandro-sanchez.netlify.app/)
+
 # Jugador
 
 El personaje es capaz de moverse a los lados y saltar. Para ello, se cuenta con los scripts `CharacterController2D.cs` y `PlayerMovement.cs`. Además, el personaje controlado por el jugador posee a su vez el script `Player` que gestiona las colisiones con el fin de aumentar la puntuación, reducir la salud, etc.
