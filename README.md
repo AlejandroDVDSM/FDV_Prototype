@@ -4,11 +4,15 @@ El prototipo desarrollado consiste en un juego de plataformas de scroll lateral 
 
 https://github.com/user-attachments/assets/d533c7d1-1e36-4a5b-9385-52c7e74d81fa
 
+# Jugador
+
+El personaje es capaz de moverse a los lados y saltar. Para ello, se cuenta con los scripts `CharacterController2D.cs` y `PlayerMovement.cs`. Además, el personaje controlado por el jugador posee a su vez el script `Player` que gestiona las colisiones con el fin de aumentar la puntuación, reducir la salud, etc.
+
+![image](https://github.com/user-attachments/assets/5dfb76be-37f1-41bb-8f29-a5f662b59361)
+
+![image](https://github.com/user-attachments/assets/e20e20d7-5cc9-48d7-b474-502ba3cc1490)
+
 ## Movimiento
-
-El personaje es capaz de moverse a los lados y saltar. Para ello, se cuenta con los scripts `CharacterController2D.cs` y `PlayerMovement.cs`.
-
-![image](https://github.com/user-attachments/assets/07aef12e-fb7a-4691-9e9a-e46362763981)
 
 `CharacterController2D.cs` verifica continuamente si el jugador se encuentra en el suelo y de modificar la propiedad `Velocity` de su `Rigidbody2D` para mover al jugador. Además, se encarga de invocar eventos cuando el jugador se mueva, salte, aterrize al suelo o empiece a caer tras un salto.
 
@@ -91,9 +95,13 @@ Por otra parte, `PlayerMovement.cs` únicamente se encargará de llamar a `Chara
     }
 ```
 
-## Recolección de objetos
+## Otras características del jugador
 
-En el nivel se encuentran diamantes repartidos que incrementan el puntaje del jugador. Estos diamantes tienen la etiqueta `Collectable` y cuentan con un `BoxCollider2D` con la propiedad `IsTrigger` activada. Por tanto, en `Player.cs`, cuando el jugador entra en el trigger del diamante, se dispara el evento `OnTriggerEnter2D` y se incrementa la puntuación del jugador además de destruir al propio diamante recién recolectado.
+Como se mencionó anteriormente, el jugador cuenta con `Player.cs` para controlar los aspectos de su salud, puntuación y colisiones gracias a las funciones `TakeDamage()`, `IncreaseScore()`, `OnCollisionEnter2D()` y `OnTriggerEnter2D()`.
+
+# Recolección de objetos
+
+En el nivel se encuentran diamantes repartidos que incrementan el puntaje del jugador. Estos diamantes tienen la etiqueta `Collectable` y cuentan con un `BoxCollider2D` con la propiedad `IsTrigger` activada. Por tanto, en `Player.cs`, cuando el jugador entra en el trigger del diamante, se dispara el evento `OnTriggerEnter2D()` y se incrementa la puntuación del jugador además de destruir al propio diamante recién recolectado.
 
 ![Recolectar](https://github.com/user-attachments/assets/22fe3b8c-4d52-4742-a4d5-919e3afffa59)
 
@@ -118,7 +126,7 @@ private void OnTriggerEnter2D(Collider2D other)
 }
 ```
 
-## Animaciones
+# Animaciones
 
 La animación del jugador cuenta con cinco estados distintos:
 * `Player_Idle`: animación a ejecutar cuando el jugador se encuentra parado.
@@ -130,20 +138,25 @@ La animación del jugador cuenta con cinco estados distintos:
 ![image](https://github.com/user-attachments/assets/7d8b6cc6-be7c-4683-8a94-530a1294d971)
 
 `Player_Idle`:
+
 ![Player_Idle](https://github.com/user-attachments/assets/dcff5d62-e4ab-4473-b567-84497139de63)
 
 `Player_Run`:
+
 ![Player_run](https://github.com/user-attachments/assets/dd941913-f60f-4a52-a9f1-2ff64a9f351e)
 
 `Player_Hit`:
+
 ![Player_Hit](https://github.com/user-attachments/assets/b89f09bb-4d3a-4025-8be6-98e9bb0674ec)
 
 `Player_Jump` y `Player_Fall`:
+
 ![Player_Jump y Fall](https://github.com/user-attachments/assets/f0907b11-2104-4aab-8e36-816655f530c5)
 
-## Activación de sonidos
+# Activación de sonidos
 
-Para incorporar audio al juego se ha `AudioManager.cs`, que se encarga de reproducir todos los sonidos del juego.
+Para incorporar audio al juego se ha creado `AudioManager.cs`, que contiene una colección de todos los sonidos empleados en el juego.
+
 ![image](https://github.com/user-attachments/assets/84589b03-f8a7-4408-aeb8-f35f60a3a106)
 
 `AudioManager.cs` cuenta con dos vectores que almacena objetos de tipo `Sound`, uno de ellos es `Sound[] sounds`, que contiene cualquier audio a emplear. Por otro lado se encuentra `Sound[] footstepsSounds`, que contiene únicamente los audios de pisadas.
@@ -171,8 +184,7 @@ public class Sound
     public AudioSource source;
 }
 ```
-
-Cuando se desee reproducir un audio basta con llamar a la función `Play` de `AudioManager.cs`. Por ejemplo, cuando el jugador recolecta un diamante se reproduce el audio de la siguiente manera: `AudioManager.Instance.Play("Coin");`
+Cuando comienza el juego, `AudioManager` crea un `AudioSource` por cada `Sound` asignado a los dos arrays mencionados anteriormente. Así, cuando se desee reproducir un audio, basta simplemente con llamar a la función `Play()` de `AudioManager.cs`. Por ejemplo, cuando el jugador recolecta un diamante se reproduce el audio de la siguiente manera: `AudioManager.Instance.Play("Coin");`
 
 ```c#
 /// <summary>
@@ -193,7 +205,7 @@ public void Play(string name)
 }
 ```
 
-En cambio, para reproducir las pisadas habrá que llamar a `PlayFootsteps`, dado que los audios de pisadas se encuentra en un array de `Sound` distinto.
+En cambio, para reproducir las pisadas habrá que llamar a `PlayFootsteps()`, dado que los audios de las pisadas se encuentra en un array de `Sound` distinto.
 
 ```c#
 /// <summary>
@@ -219,7 +231,7 @@ public void PlayFootsteps()
 }
 ```
 
-## Pooling de objetos
+# Pooling de objetos
 
 El juego cuenta con un pool de objetos para los proyectiles donde se puede configurar el número de proyectiles a instanciar, con cuanta frecuencia y la dirección que debe seguir su movimiento. Este pool es `BulletSpawner.cs`.
 
@@ -231,7 +243,7 @@ El pool instanciará objetos de tipo `Bullet`, que su única función es la de m
 
 ![Pool](https://github.com/user-attachments/assets/55016881-16f1-4c2c-a20c-2c350a531cd9)
 
-## Scrolling de fondo
+# Scrolling de fondo
 
 El fondo cuenta con tres capas distintas que al combinarse forman un cielo nuboso y un mar.
 
@@ -261,7 +273,7 @@ private void Update()
 
 ![Parallax](https://github.com/user-attachments/assets/b64716e8-a30c-41fd-9f2c-2d3f3dae84e2)
 
-## Tilemap
+# Tilemap
 
 El tilemap que conforma el nivel cuenta con dos capas:
 * `Tilemap_Ground`: capa que emplea los componentes `TilemapCollider2D`, `Rigidbody2D` y `CompositeCollider2D` para añadir colisiones y que así el jugador no caiga al vacío.
@@ -269,7 +281,9 @@ El tilemap que conforma el nivel cuenta con dos capas:
 
 <img width="1366" alt="image" src="https://github.com/user-attachments/assets/cb3eb3eb-be9f-4844-916f-48f3b9bda4a0" />
 
+
 Componentes para las colisiones de `Tilemap_Ground`:
+
 ![image](https://github.com/user-attachments/assets/f8a7b754-20b6-485f-b31c-746660b0a236)
 
 ## UI
@@ -326,9 +340,9 @@ public void DisplayEndPanel()
 
 Cabe destacar que el panel final siempre está activo pero no aparece en pantalla debido a que su alfa está a 0, dejando este panel totalmente transparente. Cuando se llama a `DisplayEndPanel()` se modifica su alfa para que sea visible.
 
-## Cámara
+# Cámara
 
-El juego, que emplea Cinemachine, cuenta con dos cámaras virtuales distintas:
+El juego, que emplea [Cinemachine](https://unity.com/es/features/cinemachine), cuenta con dos cámaras virtuales distintas:
 * `Player VCam`: cámara que sigue al jugador constantemente y que está confinada por el componente `CinemachineConfiner`.
 * `Target Group VCam`: cámara que enfocará al jugador y a la puerta que se encuentra al final del nivel.
 
@@ -345,7 +359,7 @@ El juego, que emplea Cinemachine, cuenta con dos cámaras virtuales distintas:
 
 ![TargetGroupVCam](https://github.com/user-attachments/assets/c890fdb3-98a5-4ea6-af46-8bf93c7c0bf2)
 
-Además de emplear dos cámaras distintas, se emplea el componente `Cinemachine Impulse Listener` para hacer temblar `Player VCam` cuando el jugador recibe un golpe.
+Además de emplear dos cámaras distintas, se emplea el componente `Cinemachine Impulse Listener` para hacer temblar `Player VCam` cuando el jugador recibe un golpe. El componente `Cinemachine Impulse Source` se encuentra vinculado al personaje controlado por el jugador, dado que será quien haga temblar la cámara.
 
 ![image](https://github.com/user-attachments/assets/b8dab9ad-92ca-4925-8bfe-65bfe217684e)
 
@@ -353,9 +367,9 @@ Además de emplear dos cámaras distintas, se emplea el componente `Cinemachine 
 
 ![ShakeCam](https://github.com/user-attachments/assets/99223fbe-88d1-4464-b472-efd937dc1b3e)
 
-## Otros aspectos del juego
+# Otros aspectos del juego
 
-### Límite del mapa
+## Límite del mapa
 
 El mapa cuenta con un rectángulo rojo fuera de la vista del jugador que actúa como trigger para devolver al jugador al comienzo del mapa en caso de que se caiga del mapa.
 
@@ -363,7 +377,7 @@ El mapa cuenta con un rectángulo rojo fuera de la vista del jugador que actúa 
 
 ![OffLimit](https://github.com/user-attachments/assets/eb0e3f65-9f55-403f-96ed-04a64fbc7618)
 
-### Tweens
+## Tweens
 
 Para darle más vida al juego se ha importado el paquete [DOTween](https://dotween.demigiant.com/) que facilita la implementación de los tweens. Los tween añadidos han sido:
 
@@ -394,7 +408,7 @@ public void UpdateScoreTxt(int score)
  ```
 ![DIamanteUI](https://github.com/user-attachments/assets/b6eef266-cac5-4ecf-b8e8-cdcdef7da17d)
 
-4. Tween para dar retroalimentación visual cuando la salud del personaje se reduce:
+3. Tween para dar retroalimentación visual cuando la salud del personaje se reduce:
 
 `UIManager.cs`
 ```c#
@@ -412,7 +426,7 @@ public void UpdateHpTxt(int hp)
    
 ![CorazónUI](https://github.com/user-attachments/assets/bed7f44b-e3b3-4d48-bd02-3cefbc39c46a)
 
-6. Tween para aumentar el alfa del panel final del juego:
+4. Tween para aumentar el alfa del panel final del juego:
 
 `UIManager.cs`
 ```c#
@@ -428,7 +442,24 @@ public void DisplayEndPanel()
 
 ![FadeIn](https://github.com/user-attachments/assets/78927443-9cf7-4f57-a530-7813de947aea)
 
+## Area Effector 2D
+
+Al final del nivel se se encuentra situado un muelle que eleva por los aires al jugador gracias al componente `AreaEffector2D`.
+
+![image](https://github.com/user-attachments/assets/5c918ef2-4fca-430b-b71a-af45325ea448)
+
+![AreaEffector](https://github.com/user-attachments/assets/ba2f9437-0207-4bfa-9191-67311ee37642)
 
 
+# Créditos
 
+## Sprites
+* Tiles por "Kenney": [https://kenney.nl/assets/pixel-platformer](https://kenney.nl/assets/pixel-platformer).
+* Background por "Free Game Assets (GUI, Sprite, Tilesets)": [https://free-game-assets.itch.io/ocean-and-clouds-free-pixel-art-backgrounds](https://free-game-assets.itch.io/ocean-and-clouds-free-pixel-art-backgrounds).
+* Rana Ninja por "Pixel Frog": [https://pixelfrog-assets.itch.io/pixel-adventure-1](https://pixelfrog-assets.itch.io/pixel-adventure-1).
 
+## Audio:
+* Sonidos de pisadas por "Pelatho": [https://thowsenmedia.itch.io/video-game-footstep-sound-pack](https://thowsenmedia.itch.io/video-game-footstep-sound-pack).
+* Música por "Brackeys" y "Sofia Thirslund": [https://brackeysgames.itch.io/brackeys-platformer-bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle).
+* Sonido a la hora de recolectar un diamante por "Brackeys" y "Asbjørn Thirslund": [https://brackeysgames.itch.io/brackeys-platformer-bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle).
+* Sonido a la hora de recibir daño por "Mixkit": [https://mixkit.co/free-sound-effects/hurt/](https://mixkit.co/free-sound-effects/hurt/)
