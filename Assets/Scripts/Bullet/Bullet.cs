@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
     private BulletSpawner _spawner;
     private Vector3 _direction;
     
-    
     private void Awake()
     {
         _spawner = GetComponentInParent<BulletSpawner>();
@@ -36,6 +35,10 @@ public class Bullet : MonoBehaviour
             Reset();
     }
 
+    /// <summary>
+    /// Set bullet movement direction
+    /// </summary>
+    /// <param name="direction">Direction of the movement</param>
     public void SetDirection(EBulletDirection direction)
     {
         switch (direction)
@@ -55,6 +58,9 @@ public class Bullet : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Disable the bullet and set its position back to the pool
+    /// </summary>
     private void Reset()
     {
         gameObject.SetActive(false);

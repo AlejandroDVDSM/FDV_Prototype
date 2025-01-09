@@ -17,6 +17,9 @@ public class BulletSpawner : MonoBehaviour
         InitBulletPool();
     }
 
+    /// <summary>
+    /// Initialize the pool by instantiating the bullets and adding them to the pool
+    /// </summary>
     private void InitBulletPool()
     {
         _bulletPool = new List<Bullet>();
@@ -32,6 +35,9 @@ public class BulletSpawner : MonoBehaviour
         InvokeRepeating(nameof(SetPooledBulletActive), 0, _repeatRate);
     }
 
+    /// <summary>
+    /// Set one of the bullets active
+    /// </summary>
     private void SetPooledBulletActive()
     {
         
@@ -45,6 +51,10 @@ public class BulletSpawner : MonoBehaviour
             _currentBulletIndex = 0;
     }
 
+    /// <summary>
+    /// Remove one of the bullets from the pool
+    /// </summary>
+    /// <param name="bullet"></param>
     public void UnsubscribeBullet(Bullet bullet)
     {
         _bulletPool.Remove(bullet);

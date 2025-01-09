@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     {
         Instance = this;
         
+        // Add an AudioSource and set it up for each sound
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -29,21 +30,16 @@ public class AudioManager : MonoBehaviour
                 Play(s.name);
         }
 
+        // Add just one AudioSource for all the footsteps sounds
         _footstepsAudioSource = gameObject.AddComponent<AudioSource>();
         _footstepsAudioSource.volume = 1f;
         _footstepsAudioSource.pitch = 1f;
-        
-        // foreach (Sound s in footsteps)
-        // {
-        //     s.source = _footstepsAudioSource;
-        //     s.source.clip = s.clip;
-        //     
-        //     s.source.volume = s.volume;
-        //     s.source.pitch = s.pitch;
-        //     s.source.loop = s.loop;
-        // }
     }
 
+    /// <summary>
+    /// Play an audio
+    /// </summary>
+    /// <param name="name">Name of the audio to be played</param>
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name.Equals(name));
@@ -57,6 +53,9 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    /// <summary>
+    /// Play a random footsteps audio
+    /// </summary>
     public void PlayFootsteps()
     {
         if (!_footstepsAudioSource.isPlaying)

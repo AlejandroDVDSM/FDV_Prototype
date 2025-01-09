@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     public void UpdateHpTxt(int hp)
     {
         hpText.text = $"x{hp}";
+        
+        // Add a tween to the HP image to make it shake
         hpImg.rectTransform.DOShakePosition(0.5f, 1f);
         hpImg.rectTransform.DOShakeRotation(0.5f, 1f);
         hpImg.rectTransform.DOShakeScale(0.5f, 1f);
@@ -37,11 +39,15 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = $"x{score}";
 
+        // Add a tween to the score image to rotate it
         scoreImg.rectTransform.DORotate(new Vector3(0, 180, 0), 1f)
             .SetEase(Ease.InOutExpo)
             .SetLoops(2, LoopType.Yoyo);
     }
 
+    /// <summary>
+    /// Fade the end panel in
+    /// </summary>
     public void DisplayEndPanel()
     {
         endPanel.DOFade(1.0f, 1.25f)

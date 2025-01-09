@@ -16,6 +16,9 @@ public class InvisibleWall : MonoBehaviour
             EnableInvisibleWall();
     }
 
+    /// <summary>
+    /// Activates the invisible wall at the same time that it deactivates this same gameobject to avoid triggering it again
+    /// </summary>
     public void EnableInvisibleWall()
     {
         invisibleWall.SetActive(true);

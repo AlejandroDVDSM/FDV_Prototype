@@ -19,12 +19,18 @@ public class CameraManager : MonoBehaviour
         SetPlayerVCamActive();
     }
 
+    /// <summary>
+    /// Activate the player virtual camera at the same time that it deactivates other virtual cameras
+    /// </summary>
     public void SetPlayerVCamActive()
     {
         playerVCam.gameObject.SetActive(true);
         targetGroupVCam.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Activate the target group virtual camera at the same time that it deactivates other virtual cameras
+    /// </summary>
     public void SetTargetGroupVCamActive()
     {
      targetGroupVCam.gameObject.SetActive(true);
