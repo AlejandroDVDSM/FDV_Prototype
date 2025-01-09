@@ -4,6 +4,8 @@ El prototipo desarrollado consiste en un juego de plataformas de scroll lateral 
 
 https://github.com/user-attachments/assets/d533c7d1-1e36-4a5b-9385-52c7e74d81fa
 
+Enlace al vídeo: [https://youtu.be/OZX2B9JNGIE](https://youtu.be/OZX2B9JNGIE).
+
 # Jugador
 
 El personaje es capaz de moverse a los lados y saltar. Para ello, se cuenta con los scripts `CharacterController2D.cs` y `PlayerMovement.cs`. Además, el personaje controlado por el jugador posee a su vez el script `Player` que gestiona las colisiones con el fin de aumentar la puntuación, reducir la salud, etc.
@@ -449,7 +451,6 @@ Al final del nivel se se encuentra situado un muelle que eleva por los aires al 
 ![image](https://github.com/user-attachments/assets/5c918ef2-4fca-430b-b71a-af45325ea448)
 
 ![AreaEffector](https://github.com/user-attachments/assets/ba2f9437-0207-4bfa-9191-67311ee37642)
-
 
 # Créditos
 
